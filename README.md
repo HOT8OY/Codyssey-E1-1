@@ -48,7 +48,7 @@
 https://github.com/HOT8OY/Codyssey-E1-1
 ```
 
-[이미지]
+<img src="https://github.com/HOT8OY/Codyssey-E1-1/blob/main/%EA%B9%83%ED%97%88%EB%B8%8C.png">
 
 
 ## 2.터미널 조작 로그 기록 & 3.권한 실습 기록
