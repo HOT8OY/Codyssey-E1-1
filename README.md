@@ -99,6 +99,9 @@ Saving session...
 
 ```
 
+- 실습 이미지
+  <src img="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%202.46.30.png">
+
 ---
 
 ## 4. Docker 설치 및 기본 점검
@@ -215,6 +218,9 @@ Server:
 
 WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
 ```
+
+- 실습 이미지
+  <img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%203.44.36.png">
 
 ---
 
@@ -371,6 +377,9 @@ FROM nginx:alpine
 
 COPY M1_Practice_sunjoon.html /usr/share/nginx/html/index.html
 ```
+- 실습 이미지
+  <img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%204.23.55.png">
+
 
 ### 커스텀 이미지 빌드
 - `-t` : 이미지에 이름을 붙임(my-custom-nginx 버전 1.0)
@@ -396,6 +405,11 @@ COPY M1_Practice_sunjoon.html /usr/share/nginx/html/index.html
  => => naming to docker.io/library/my-custom-nginx:1.0    
 ```
 
+- 실습 이미지
+<src img="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%204.24.05.png">
+- 커스텀 이미지 빌드 터미널 실행
+src img="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%204.24.18.png">
+
 ---
 
 ## 8. 포트 매핑 및 접속 증거
@@ -409,6 +423,15 @@ COPY M1_Practice_sunjoon.html /usr/share/nginx/html/index.html
 개인정보  마스킹 :  M1_Practice % echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html 
 <h1>수정 전: 바인드 마운트 테스트</h1> bind-html/index.html
 ```
+#### 바인드 마운트 실습 이미지 - 1
+<img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EB%B0%94%EC%9D%B8%EB%93%9C%20%EB%A7%88%EC%9A%B4%ED%8A%B8%20-%20%EC%88%98%EC%A0%95%20%EC%A0%84)%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%205.40.06.png">
+
+
+#### 바인드 마운트 실습 이미지 - 2
+- 바인드 된 html 파일 내용을 수정 후 브라우저를 새로고침하여 바뀌었는지 확인.
+
+<img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EB%B0%94%EC%9D%B8%EB%93%9C%20%EB%A7%88%EC%9A%B4%ED%8A%B8%20-%20%EC%88%98%EC%A0%95%20%ED%9B%84)%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%205.43.02.png">
+
 
 ### 바인드 마운트로 컨테이너 실행
 - 맥 내의 bind-html 폴더를 컨테이너 안의 nginx 웹 폴더와 연결
@@ -471,6 +494,9 @@ root@dc41908e9102:/# exit
 exit
 ```
 
+#### 볼륨 영속성 실습 이미지
+<img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EB%B3%BC%EB%A5%A8%20%EC%98%81%EC%86%8D%EC%84%B1%20%ED%85%8C%EC%8A%A4%ED%8A%B8)%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%206.07.43.png">
+
 ---
 
 ### 10. Git 설정 및 Github 연동
@@ -480,10 +506,10 @@ exit
 [이미지]
 
 ```
-c4321qwaszx9029@c6r10s3 ~ % git config --global user.name "깃허브 닉네임"
-c4321qwaszx9029@c6r10s3 ~ % git config --global user.email "깃허브 이메일"
-c4321qwaszx9029@c6r10s3 ~ % git config --global init.defaultBranch main
-c4321qwaszx9029@c6r10s3 ~ % git config --list
+[개인정보 마스킹] ~ % git config --global user.name "깃허브 닉네임"
+[개인정보 마스킹] ~ % git config --global user.email "깃허브 이메일"
+[개인정보 마스킹] ~ % git config --global init.defaultBranch main
+[개인정보 마스킹] ~ % git config --list
 credential.helper=osxkeychain
 user.name=깃허브 닉네임
 user.email= 깃허브 이메일
@@ -506,8 +532,10 @@ init.defaultbranch=main
 - 문제: 'echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html' 사용하여 html 파일에 입력 시 인코딩 문제(한글 깨짐 현상)이 발생.
 ```
 - 원인: 손으로 직접 VSC에 html을 작성할 땐 `!`을 눌러서 나오는 html 포맷에 맞춰서 작업을 하나, `echo`를 사용한 html 생성은 내부에 언어 설정, 유니코드 설정이 전혀 되어있지 않음.
-- 해결 : html 파일 내 <!DOCTYPE html>을 사용하여 <html lang="ko">, <meta charset="UTF-8">를 명시적으로 지정하여 인코딩 문제 해결.
-
+- 해결 : html 파일 내 `<!DOCTYPE html>`을 사용하여 `<html lang="ko">`, `<meta charset="UTF-8">`를 명시적으로 지정하여 인코딩 문제 해결.
+- 이미지
+<img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%851)%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%205.36.01.png">
+<img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%851_%ED%95%B4%EA%B2%B0)%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%205.38.55.png">
 
 ### Trouble Shooting - 2
 
@@ -516,4 +544,4 @@ init.defaultbranch=main
 - 해결 및 대안: `Ctrl + C`를 눌러 터미널의 멈춤 상태를 취소한 뒤, `echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html` 와 같이 기호를 정확하게 수정하여 파일을 정상적으로 생성함. 이후 브라우저를 새로고침하여 에러가 해결됨을 확인함.
 
 
-- 끝 -
+` - 끝 -
