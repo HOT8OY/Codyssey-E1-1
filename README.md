@@ -100,7 +100,7 @@ Saving session...
 ```
 
 - 실습 이미지
-  <src img="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%202.46.30.png">
+  <img src="https://github.com/HOT8OY/sj-codyssey/blob/main/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202026-07-30%20%EC%98%A4%ED%9B%84%201.18.15.png">
 
 ---
 
