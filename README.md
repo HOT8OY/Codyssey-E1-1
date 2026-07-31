@@ -1,0 +1,463 @@
+
+## 1) 실행 환경
+- OS: macOS 15.7.4
+- Shell: zsh 5.9 (x86_64-apple-darwin24.0)
+- Docker: 28.5.2
+- Git: 2.54.0
+
+## 2) 수행 체크리스트
+- [x] 터미널 기본 조작 및 폴더 구성
+- [x] 권한 변경 실습
+- [x] Docker 설치/점검
+- [x] hello-world 실행
+- [x] Dockerfile 빌드/실행
+- [x] 포트 매핑 접속(2회)
+- [x] 바인드 마운트 반영
+- [x] 볼륨 영속성
+- [x] Git 설정 + VSCode GitHub 연동
+
+ ## 3) 수행 로그(발췌)
+
+
+
+
+---
+
+## 2.터미널 조작 로그 기록 및 3.권한 실습 기록
+
+- terminal을 사용하여 현재 위치 확인, 파일 목록 상세 보기, 권한 변경, 폴더 이동, 폴더 생성, 빈 파일 생성, 파일 내용 확인, 파일/폴더 삭제를 실행하였다.
+
+
+```
+Last login: Thu Jul 30 12:38:26 on console
+개인정보  마스킹 :  ~ % pwd
+/Users/[개인정보  마스킹]
+
+개인정보  마스킹 :  ~ % mkdir codyssey-assignment
+
+개인정보  마스킹 :  ~ % cd codyssey-assignment
+
+개인정보  마스킹 :  codyssey-assignment % touch test.txt
+
+개인정보  마스킹 :  codyssey-assignment % ls -la
+total 0
+drwxr-xr-x   3 [개인정보  마스킹]  [개인정보  마스킹]   96  7 30 13:07 .
+drwxr-x---+ 19 [개인정보  마스킹]  [개인정보  마스킹]  608  7 30 13:07 ..
+-rw-r--r--   1 [개인정보  마스킹]  [개인정보  마스킹]    0  7 30 13:07 test.txt
+
+개인정보  마스킹 :  codyssey-assignment % chmod 755 test.txt 
+
+개인정보  마스킹 :  codyssey-assignment % ls -la
+total 0
+drwxr-xr-x   3 [개인정보  마스킹]  [개인정보  마스킹]   96  7 30 13:07 .
+drwxr-x---+ 19 [개인정보  마스킹]  [개인정보  마스킹]  608  7 30 13:07 ..
+-rwxr-xr-x   1 [개인정보  마스킹]  [개인정보  마스킹]    0  7 30 13:07 test.txt
+
+개인정보  마스킹 :  codyssey-assignment % cat test.txt
+
+개인정보  마스킹 :  codyssey-assignment % rm test.txt
+
+개인정보  마스킹 :  codyssey-assignment % ls -la
+total 0
+drwxr-xr-x   2 [개인정보  마스킹]  [개인정보  마스킹]   64  7 30 14:40 .
+drwxr-x---+ 22 [개인정보  마스킹]  [개인정보  마스킹]  704  7 30 14:40 ..
+
+개인정보  마스킹 :  codyssey-assignment % exit
+
+Saving session...
+...saving history...truncating history files...
+...completed.
+
+
+```
+
+---
+
+## 4. Docker 설치 및 기본 점검
+- `docker --version` 명령어로 docker의 버전을 확인할 수 있음. 버전은 28.5.2
+- `docker info` 명령어로 docker 엔진의 상세한 정보 확인 가능
+
+버전 28.5.2
+컨텍스트: 옵스텍
+각종 플러그인
+실행중인 서버의 컨테이너 상태 및 현황 등
+운영채제는 리눅스 x64계열이며 할당된 스펙이나 루트 경로, 사용 가능한 IP 풀 등이 나옴
+
+
+
+```
+개인정보  마스킹 :  ~ % docker --version
+Docker version 28.5.2, build ecc6942
+
+개인정보  마스킹 :  ~ % docker info
+Client:
+ Version:    28.5.2
+ Context:    orbstack
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.29.1
+    Path:     /Users/개인정보 마스킹/.docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.40.3
+    Path:     /Users/개인정보 마스킹/.docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 0
+ Server Version: 28.5.2
+ Storage Driver: overlay2
+  Backing Filesystem: btrfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 1c4457e00facac03ce1d75f7b6777a7a851e5c41
+ runc version: d842d7719497cc3b774fd71620278ac9e17710e0
+ init version: de40ad0
+ Security Options:
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.17.8-orbstack-00308-g8f9c941121b1
+ Operating System: OrbStack
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 6
+ Total Memory: 15.67GiB
+ Name: orbstack
+ ID: 개인정보 마스킹
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Experimental: false
+ Insecure Registries:
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+ Product License: Community Engine
+ Default Address Pools:
+   Base: 192.168.97.0/24, Size: 24
+   Base: 192.168.107.0/24, Size: 24
+   Base: 192.168.117.0/24, Size: 24
+   Base: 192.168.147.0/24, Size: 24
+   Base: 192.168.148.0/24, Size: 24
+   Base: 192.168.155.0/24, Size: 24
+   Base: 192.168.156.0/24, Size: 24
+   Base: 192.168.158.0/24, Size: 24
+   Base: 192.168.163.0/24, Size: 24
+   Base: 192.168.164.0/24, Size: 24
+   Base: 192.168.165.0/24, Size: 24
+   Base: 192.168.166.0/24, Size: 24
+   Base: 192.168.167.0/24, Size: 24
+   Base: 192.168.171.0/24, Size: 24
+   Base: 192.168.172.0/24, Size: 24
+   Base: 192.168.181.0/24, Size: 24
+   Base: 192.168.183.0/24, Size: 24
+   Base: 192.168.186.0/24, Size: 24
+   Base: 192.168.207.0/24, Size: 24
+   Base: 192.168.214.0/24, Size: 24
+   Base: 192.168.215.0/24, Size: 24
+   Base: 192.168.216.0/24, Size: 24
+   Base: 192.168.223.0/24, Size: 24
+   Base: 192.168.227.0/24, Size: 24
+   Base: 192.168.228.0/24, Size: 24
+   Base: 192.168.229.0/24, Size: 24
+   Base: 192.168.237.0/24, Size: 24
+   Base: 192.168.239.0/24, Size: 24
+   Base: 192.168.242.0/24, Size: 24
+   Base: 192.168.247.0/24, Size: 24
+   Base: fd07:b51a:cc66:d000::/56, Size: 64
+
+WARNING: DOCKER_INSECURE_NO_IPTABLES_RAW is set
+```
+
+---
+
+## 5. Docker 기본 운영 명령 수행
+- 이미지, 컨테이너, 운영 로그, 리소스를 확인함
+
+
+#### 이미지 목록 확인
+- 전에 다운 받은 `ubuntu`, `hello-world` 이미지가 표시된다.
+```
+개인정보  마스킹 :  ~ % docker images
+
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+ubuntu        latest    de7345b16e94   2 weeks ago    100MB
+hello-world   latest    e2ac70e7319a   4 months ago   10.1kB
+```
+
+#### 현재 실행중인 컨테이너 목록 확인
+- exit로 이전 컨테이너를 전부 다 닫았기 때문에 백그라운드에 남아있는 컨테이너 하나만 표시된다.
+```
+개인정보  마스킹 :  ~ % docker ps
+
+CONTAINER ID   IMAGE     COMMAND            CREATED          STATUS          PORTS     NAMES
+f16ea36c320b   ubuntu    "sleep infinity"   13 minutes ago   Up 13 minutes             test-exec
+```
+
+#### 모든 컨테이너 목록 확인
+- 이전에 종료한 모든 컨테이너까지 전부 출력된다.
+```
+개인정보  마스킹 :  ~ % docker ps -a
+
+CONTAINER ID   IMAGE         COMMAND            CREATED          STATUS                      PORTS     NAMES
+f16ea36c320b   ubuntu        "sleep infinity"   13 minutes ago   Up 13 minutes                         test-exec
+dd66bab0c727   ubuntu        "bash"             25 minutes ago   Exited (0) 19 minutes ago             kind_banach
+109aa52d4214   hello-world   "/hello"           26 minutes ago   Exited (0) 26 minutes ago             laughing_dirac
+```
+
+- kind_banach 컨테이너의 실행 로그를 확인
+```
+개인정보  마스킹 :  ~ % docker logs kind_banach
+root@dd66bab0c727:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@dd66bab0c727:/# echo "Hello from Codyssey!"
+Hello from Codyssey!
+root@dd66bab0c727:/# exit
+exit
+```
+
+- 현재 리소스 확인 : `docker stats` 명령어를 사용. 현재 실행중인 컨테이너는 백그라운드에서 진행중인 `test-exec`뿐임.
+
+```
+CONTAINER ID   NAME        CPU %     MEM USAGE / LIMIT     MEM %     NET I/O        BLOCK I/O         PIDS 
+f16ea36c320b   test-exec   0.00%     2.055MiB / 15.67GiB   0.01%     1.3kB / 126B   22.7MB / 8.19kB   1 
+```
+
+
+
+---
+
+## 6. 컨테이너 실행 실습
+
+### Attach 방식
+- 컨테이너를 실행하는 핵심 프로세스에 직접 접속하는 방식. 여기서 exit을 하면 메인 프로세스가 종료되므로 컨테이너 자체도 완전히 종료됨.
+
+```
+개인정보  마스킹 :  ~ % docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+4f55086f7dd0: Pull complete 
+Digest: sha256:암호화 번호
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+개인정보  마스킹 :  ~ % docker run -it ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+ed819469700f: Pull complete 
+a3679419df18: Pull complete 
+Digest: sha256:암호화 번호
+Status: Downloaded newer image for ubuntu:latest
+root@dd66bab0c727:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@dd66bab0c727:/# echo "Hello from Codyssey!"
+Hello from Codyssey!
+root@dd66bab0c727:/# exit
+exit
+개인정보  마스킹 :  ~ % docker ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+dd66bab0c727   ubuntu        "bash"     6 minutes ago   Exited (0) 6 seconds ago             kind_banach
+109aa52d4214   hello-world   "/hello"   6 minutes ago   Exited (0) 6 minutes ago             laughing_dirac
+```
+
+### Exec 방식
+- 백그라운드에서 실행중인 컨테이너에 새로운 창을 열어서 접속하는 방식. exit를 하여도 프로세스가 죽지 않고 창만 닫힘.
+
+```
+개인정보  마스킹 :  ~ % docker run -d --name test-exec ubuntu sleep infinity
+f16ea36c320bad71883dd06dcc21c493ee84b9ee66625401ee8d4f018356589d
+개인정보  마스킹 :  ~ % docker exec -it test-exec bash
+root@f16ea36c320b:/# exit
+exit
+개인정보  마스킹 :  ~ % docker ps
+CONTAINER ID   IMAGE     COMMAND            CREATED              STATUS              PORTS     NAMES
+f16ea36c320b   ubuntu    "sleep infinity"   About a minute ago   Up About a minute             test-exec
+```
+
+---
+
+## 7. 기존 Dockerfile 기반 커스텀 이미지 제작
+- 웹페이지 html 코드와 Dockerfile 생성
+
+``` M1_Practice_sunjoon.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미션 1 - Docker 웹 서버 NGINX 방식</title>
+</head>
+<body>
+    <h1>안녕하세요! 첫 번째 커스텀 웹 서버입니다.</h1>
+    <p>Dockerfile을 이용해 NGINX 베이스 이미지에 이 HTML 파일을 추가했습니다.</p>
+</body>
+</html>
+```
+
+- Dockerfile은 가볍고 빠른 Nginx alpine 버전을 베이스 이미지로 사용
+- 직접 만든 html코드()로 컨테이너 내부의 Nginx가 웹 페이지를 띄워주는 기본 경로에 덮어씀
+``` Dockerfile
+FROM nginx:alpine
+
+COPY M1_Practice_sunjoon.html /usr/share/nginx/html/index.html
+```
+
+### 커스텀 이미지 빌드
+- `-t` : 이미지에 이름을 붙임(my-custom-nginx 버전 1.0)
+- `.` : 현재 폴더 내부에서 Dockerfile을 찾아서 빌드하라는 기호
+```
+개인정보  마스킹 :  ~ % cd M1_Practice   
+
+개인정보  마스킹 :  M1_Practice % docker build -t my-custom-nginx:1.0 .
+[+] Building 6.5s (7/7) FINISHED                                                                       docker:orbstack
+ => [internal] load build definition from Dockerfile                                                              0.2s
+ => => transferring dockerfile: 118B                                                                              0.0s
+ => [internal] load metadata for docker.io/library/nginx:alpine                                                   2.4s
+ => [internal] load .dockerignore                                                                                 0.1s
+ => => transferring context: 2B                                                                                   0.0s
+ => [internal] load build context                                                                                 0.2s
+ => => transferring context: 461B                                                                                 0.0s
+ => [1/2] FROM docker.io/library/nginx:alpine@sha256:4a73073bd557c65b759505da037898b61f1be6cbcc3c2c3aeac22d2a470  2.9s
+# ... 생략
+ => [2/2] COPY M1_Practice_sunjoon.html /usr/share/nginx/html/index.html                                          0.2s
+ => exporting to image                                                                                            0.2s
+ => => exporting layers                                                                                           0.1s
+ => => writing image sha256:암호화 번호                     0.0s
+ => => naming to docker.io/library/my-custom-nginx:1.0    
+```
+
+---
+
+## 8. 포트 매핑 및 접속 증거
+
+### 연결할 폴더와 파일 생성
+```
+개인정보  마스킹 :  ~ % cd M1_Practice
+                                                   
+개인정보  마스킹 :  M1_Practice % mkdir bind-html
+
+개인정보  마스킹 :  M1_Practice % echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html 
+<h1>수정 전: 바인드 마운트 테스트</h1> bind-html/index.html
+```
+
+### 바인드 마운트로 컨테이너 실행
+- 맥 내의 bind-html 폴더를 컨테이너 안의 nginx 웹 폴더와 연결
+```
+개인정보  마스킹 :  M1_Practice % docker run -d -p 8081:80 -v $(pwd)/bind-html:/usr/share/nginx/html --name bindtes
+t nginx:alpine
+Unable to find image 'nginx:alpine' locally
+alpine: Pulling from library/nginx
+55afa1ecc21d: Already exists 
+3cd534fe98c6: Already exists 
+1223f016b4e4: Already exists 
+62bec68d7c31: Already exists 
+46f977ee452f: Already exists 
+d0008c891db4: Already exists 
+390dc935348d: Already exists 
+46519e7231d2: Already exists 
+Digest: sha256:암호화번호
+Status: Downloaded newer image for nginx:alpine
+a2908df9a77c3c5319e33f4cfc74ceb72ee696772f56fa9c380f397dbd99677d
+```
+
+### Trouble Shooting
+- 'echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html 
+<h1>수정 전: 바인드 마운트 테스트</h1> bind-html/index.html' 사용 시 인코딩 문제(한글 깨짐 현상)이 발생.
+- <!DOCTYPE html>을 사용하여 <html lang="ko">, <meta charset="UTF-8">를 명시적으로 지정하여 인코딩 문제 해결.
+
+## 9. Docker 볼륨 영속성 검증
+
+### `my data` 라는 이름의 Docker 볼륨을 생성. 해당 볼륨에 컨테이너를 연결하여 실행 및 데이터를 기록.
+- hello.txt 파일을 생성하여 '이 내용은 컨테이너가 지워져도 남습니다'라는 내용을 적음
+```
+
+
+개인정보  마스킹 :  ~ % docker volume create mydata
+mydata
+
+개인정보  마스킹 :  ~ % docker run -it -v mydata:/data --name vol-test ubuntu bash
+
+root@71c5015358ef:/# echo "This data would survive even if container is deleted" > /data/hello.txt
+
+# 잘 써졌는지 체크
+root@71c5015358ef:/# cat /data/hello.txt
+This data would survive even if container is deleted
+
+root@71c5015358ef:/# exit
+exit
+
+```
+
+
+### 컨테이너 삭제 및 새로운 컨테이너로 데어터 유지(영속성) 증명
+- 기존 볼륨과 연결시켜둔 컨테이너를 지움
+- 새로운 컨테이너를 만들되, 아까와 같은 'mydata' 볼륨을 연결하여 실행
+- 다시 'hello.txt' 파일을 열어서 내용이 같은지 확인됨
+```
+개인정보  마스킹 :  ~ % docker rm -f vol-test
+vol-test
+
+개인정보  마스킹 :  ~ % docker run -it -v mydata:/data --name vol-test2 ubuntu bash
+
+root@dc41908e9102:/# cat /data/hello.txt
+This data would survive even if container is deleted
+
+root@dc41908e9102:/# exit
+exit
+```
+
+---
+
+### 10. Git 설정 및 Github 연동
+
+```
+c4321qwaszx9029@c6r10s3 ~ % git config --global user.name "깃허브 닉네임"
+c4321qwaszx9029@c6r10s3 ~ % git config --global user.email "깃허브 이메일"
+c4321qwaszx9029@c6r10s3 ~ % git config --global init.defaultBranch main
+c4321qwaszx9029@c6r10s3 ~ % git config --list
+credential.helper=osxkeychain
+user.name=깃허브 닉네임
+user.email= 깃허브 이메일
+init.defaultbranch=main
+```
