@@ -401,11 +401,6 @@ Status: Downloaded newer image for nginx:alpine
 a2908df9a77c3c5319e33f4cfc74ceb72ee696772f56fa9c380f397dbd99677d
 ```
 
-### Trouble Shooting
-- 'echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html 
-<h1>수정 전: 바인드 마운트 테스트</h1> bind-html/index.html' 사용 시 인코딩 문제(한글 깨짐 현상)이 발생.
-- <!DOCTYPE html>을 사용하여 <html lang="ko">, <meta charset="UTF-8">를 명시적으로 지정하여 인코딩 문제 해결.
-
 ## 9. Docker 볼륨 영속성 검증
 
 ### `my data` 라는 이름의 Docker 볼륨을 생성. 해당 볼륨에 컨테이너를 연결하여 실행 및 데이터를 기록.
@@ -460,4 +455,12 @@ credential.helper=osxkeychain
 user.name=깃허브 닉네임
 user.email= 깃허브 이메일
 init.defaultbranch=main
+```
+
+---
+
+### Trouble Shooting - 1
+```
+- 'echo "<h1>수정 전: 바인드 마운트 테스트</h1>" > bind-html/index.html' 사용하여 html 파일에 입력 시 인코딩 문제(한글 깨짐 현상)이 발생.
+- html 파일 내 <!DOCTYPE html>을 사용하여 <html lang="ko">, <meta charset="UTF-8">를 명시적으로 지정하여 인코딩 문제 해결.
 ```
